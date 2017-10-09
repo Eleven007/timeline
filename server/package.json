@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.0",
+    "ejs": "~2.5.5",
+    "express": "~4.14.1",
+    "morgan": "~1.7.0",
+    "express-mysql-session": "^1.2.1",
+    "mysql2": "^1.4.0",
+    "sequelize": "^4.4.2",
+    "serve-favicon": "~2.3.2"
+  },
+  "devDependencies": {
+    "co": "^4.6.0",
+    "connect-mysql": "^2.1.1",
+    "mysql": "^2.14.1"
+  }
+}
