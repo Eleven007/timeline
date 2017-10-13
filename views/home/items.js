@@ -243,9 +243,10 @@ export default class extends Component {
     componentDidMount() {
 
     }
+
     render() {
         let items = [];
-        let that=this;
+        let that = this;
         noteList.map(function (val, index) {
             items.push(
                 <NoteItem time={val.time}
@@ -261,54 +262,55 @@ export default class extends Component {
         });
         return (
             <ImageBackground source={require('../../images/Background4.png')} style={styles.backgroundImage}>
-                <ScrollView>
-                    <View style={styles.container}>
-                        <View style={styles.menu}>
+                <View style={styles.container}>
+                    <View style={styles.menu}>
+                        <TouchableOpacity onPress={() => {
+                            this.props.screenProps.drawerNav('DrawerOpen')
+                        }}>
+                            <Image source={require('../../images/icon-Menu.png')} style={styles.iconMenu}
+                                   resizeMode="stretch"/>
+                        </TouchableOpacity>
+                        <View style={styles.avatar_con}>
                             <TouchableOpacity onPress={() => {
-                                this.props.screenProps.drawerNav('DrawerOpen')
+                                this.props.screenProps.drawerNav('Settings')
                             }}>
-                                <Image source={require('../../images/icon-Menu.png')} style={styles.iconMenu}
+                                <Image source={require('../../images/Avatar.png')} style={styles.avatar}
                                        resizeMode="stretch"/>
                             </TouchableOpacity>
-                            <View style={styles.avatar_con}>
-                                <TouchableOpacity onPress={() => {
-                                    this.props.screenProps.drawerNav('Settings')
-                                }}>
-                                    <Image source={require('../../images/Avatar.png')} style={styles.avatar}
-                                           resizeMode="stretch"/>
-                                </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={{paddingHorizontal: 25, flexDirection: 'row', marginTop: 40}}>
+                        <View style={[styles.left, styles.flex]}>
+                            <View >
+                                <Text style={styles.week}>Thursday</Text>
+                            </View>
+                            <View >
+                                <Text style={styles.date}>February 19, 2015</Text>
                             </View>
                         </View>
-                        <View style={{paddingHorizontal: 10, flexDirection: 'row', marginTop: 40}}>
-                            <View style={[styles.left, styles.flex]}>
-                                <View >
-                                    <Text style={styles.week}>Thursday</Text>
-                                </View>
-                                <View >
-                                    <Text style={styles.date}>February 19, 2015</Text>
-                                </View>
+                        <View style={[styles.right, styles.flex]}>
+                            <View style={styles.weather}>
+                                <Image source={require('../../images/icon-Sunny.png')} style={styles.icon_weather}
+                                       resizeMode="stretch"/>
+                                <Text style={{fontSize: 40, color: '#fff', marginLeft: 10}}>58°</Text>
                             </View>
-                            <View style={[styles.right, styles.flex]}>
-                                <View style={styles.weather}>
-                                    <Image source={require('../../images/icon-Sunny.png')} style={styles.icon_weather}
-                                           resizeMode="stretch"/>
-                                    <Text style={{fontSize: 40, color: '#fff', marginLeft: 10}}>58°</Text>
-                                </View>
-                                <View >
-                                    <Text style={styles.local}>San Francisco</Text>
-                                </View>
+                            <View >
+                                <Text style={styles.local}>San Francisco</Text>
                             </View>
                         </View>
-                        <View style={{marginTop: 60}}>
+                    </View>
+
+                    <View style={{marginTop: 30, paddingLeft: 15, flex: 1}}>
+                        <ScrollView>
                             {items}
+                        </ScrollView>
+                    </View>
+                    <TouchableOpacity style={styles.add}>
+                        <View>
+                            <Image source={require('../../images/icon-Plus.png')} style={styles.icon_add}/>
                         </View>
-                    </View>
-                </ScrollView>
-                <TouchableOpacity style={styles.add}>
-                    <View>
-                        <Image source={require('../../images/icon-Plus.png')} style={styles.icon_add}/>
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                </View>
             </ImageBackground>
         )
     }
@@ -338,11 +340,12 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingHorizontal: 15,
-        paddingBottom: 100,
+        paddingHorizontal: 0,
+        paddingBottom: 0,
     },
     menu: {
         paddingTop: 30,
+        paddingHorizontal: 15,
         flexDirection: 'row',
     },
     iconMenu: {
@@ -391,11 +394,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 11111,
-        backgroundColor:'#ff3366',
-        borderRadius:55,
+        backgroundColor: '#ff3366',
+        borderRadius: 55,
     },
     icon_add: {
-        width:22,
-        height:22
+        width: 22,
+        height: 22
     }
 });
