@@ -5,7 +5,7 @@
  * 历史修订：
  */
 let Service = {
-    host: 'http://192.168.0.163:3333',
+    host: 'http://192.168.0.172:3333',
     login:'/user/login',
     loginByToken:'/user/login/token',
     getUser:'/user/get',

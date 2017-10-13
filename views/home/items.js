@@ -30,15 +30,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -50,15 +50,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -70,15 +70,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -90,15 +90,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -110,15 +110,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -130,15 +130,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -150,15 +150,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -170,15 +170,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -190,15 +190,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -210,15 +210,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
 ];

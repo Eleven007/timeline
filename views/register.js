@@ -38,7 +38,7 @@ export default class extends Component {
                     <TouchableOpacity onPress={() => {
                         goBack()
                     }}>
-                        <Image source={require('../images/icon-back.png')} style={styles.iconBack}/>
+                        <Image source={require('../images/icon-Back.png')} style={styles.iconBack}/>
                     </TouchableOpacity>
                 </View>
                 <ScrollView>

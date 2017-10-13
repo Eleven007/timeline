@@ -113,7 +113,7 @@ const ModalStack = DrawerNavigator({
             drawerIcon: () => (
                 <View>
                     <Image
-                        source={require('../images/icon-profile.png')}
+                        source={require('../images/icon-Profile.png')}
                         style={styles.icon}
                         resizeMode="stretch"
                     />

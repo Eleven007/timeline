@@ -92,6 +92,7 @@ export default class extends Component {
                                                        placeholder="Username"
                                                        placeholderTextColor="#ffffff"
                                                        underlineColorAndroid="transparent"
+                                                       autoCapitalize="none"
                                                        onChangeText={(val) => {
                                                            this.setState({
                                                                username: val

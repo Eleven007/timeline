@@ -62,7 +62,7 @@ let Util = {
         left:Dimensions.get('window').width/2-30,
         top:Dimensions.get('window').height/2-30,
     }}>
-        <ActivityIndicator size={36} color="#ffffff"/>
+        <ActivityIndicator size="large" color="#ffffff"/>
     </View>
 };
 module.exports = Util;
