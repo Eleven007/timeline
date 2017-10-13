@@ -1,29 +1,33 @@
 /**
  * @author：龚意
  * @version：v0.0.1
- * 创建日期：2017/9/30
+ * 创建日期：2017/9/29
  * 历史修订：
  */
 import React, {Component} from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    ImageBackground,
-    TouchableOpacity,
-    Image,
-    ScrollView
-} from 'react-native';
-import Util from './common/util';
-export default class extends Component{
-    render(){
-        return(
-            <View>
-                <Text>Group</Text>
-            </View>
+import {StackNavigator} from 'react-navigation';
+import Items from './Groups/items';
+import Detail from './Groups/detail';
+const ModalStack = StackNavigator({
+    Items: {
+        screen: Items
+    },
+    Detail:{
+        screen: Detail
+    }
+}, {
+    navigationOptions: {
+        header: null
+    }
+});
+export default class extends Component {
+    render() {
+        return (
+            <ModalStack screenProps={
+                {
+                    drawerNav:this.props.navigation.navigate
+                }
+            }/>
         )
     }
 }
-const styles=StyleSheet.create({
-
-});
