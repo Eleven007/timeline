@@ -24,10 +24,12 @@ export default class extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: ['2015年','9月','1日'],
+            date: ['2015年', '9月', '1日'],
             Location: ['湖北', '武汉', '洪山区'],
-            Notification: "20 minutes before",
+            Notification: ['20分钟之前'],
             Repeat: "none",
+            beginTime: ['9', '00', 'am'],
+            endTime: ['10', '00', 'am'],
         }
     }
 
@@ -77,20 +79,49 @@ export default class extends Component {
                         </View>
                         <View style={styles.item}>
                             <Text style={styles.item_label}>Date</Text>
-                            <Text style={styles.item_text}>{this.state.date[0]+this.state.date[1]+this.state.date[2]}</Text>
+                            <Text
+                                style={styles.item_text}>{this.state.date[0] + this.state.date[1] + this.state.date[2]}</Text>
                             <TouchableOpacity onPress={this._showDatePicker.bind(this)}>
                                 <Image source={require('../../images/add.png')} style={styles.datePicker}/>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.timePicker}>
+                            <View style={styles.time}>
+                                <View style={{flex:1,justifyContent:'center'}}>
+                                    <Text style={{}}>From</Text>
+                                </View>
+                                <View style={{flex:1,justifyContent:'center'}}>
+                                    <TouchableOpacity onPress={this._showTimePicker.bind(this)}>
+                                        <Text
+                                            style={[styles.item_text]}>{this.state.beginTime[0] + ":" + this.state.beginTime[1] + this.state.beginTime[2]}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={styles.time}>
+                                <View style={{flex:1,justifyContent:'center'}}>
+                                    <Text style={{}}>To</Text>
+                                </View>
+                                <View style={{flex:1,justifyContent:'center'}}>
+                                    <TouchableOpacity onPress={this._showTimePicker.bind(this)}>
+                                        <Text
+                                            style={[styles.item_text]}>{this.state.endTime[0] + ":" + this.state.endTime[1] + this.state.endTime[2]}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <TouchableOpacity>
+                                <Image source={require('../../images/sub.png')} style={styles.timeSub}/>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.item}>
                             <Text style={styles.item_label}>Location</Text>
                             <TouchableOpacity onPress={this._showAreaPicker.bind(this)}>
-                                <Text style={styles.item_text}>{this.state.Location[0]+this.state.Location[1]+this.state.Location[2]}</Text>
+                                <Text
+                                    style={styles.item_text}>{this.state.Location[0] + this.state.Location[1] + this.state.Location[2]}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.item}>
                             <Text style={styles.item_label}>Notification</Text>
-                            <TouchableOpacity onPress={this._showAreaPicker.bind(this)}>
+                            <TouchableOpacity onPress={this._showNotificationPicker.bind(this)}>
                                 <Text style={styles.item_text}>{this.state.Notification}</Text>
                             </TouchableOpacity>
                         </View>
@@ -109,7 +140,7 @@ export default class extends Component {
                         </View>
                         <View style={styles.item}>
                             <Text style={styles.item_label}>Repeat</Text>
-                            <TouchableOpacity onPress={this._showAreaPicker.bind(this)}>
+                            <TouchableOpacity>
                                 <Text style={styles.item_text}>{this.state.Repeat}</Text>
                             </TouchableOpacity>
                         </View>
@@ -157,11 +188,11 @@ export default class extends Component {
 
     _showDatePicker() {
         let that = this;
-        let Date=this.state.date;
+        let Date = this.state.date;
         Picker.init({
             pickerData: this._createDateData(),
             pickerToolBarFontSize: 16,
-            selectedValue:Date,
+            selectedValue: Date,
             pickerTitleText: 'date picker',
             pickerFontSize: 16,
             pickerFontColor: [255, 0, 0, 1],
@@ -223,7 +254,8 @@ export default class extends Component {
     }
 
     _showTimePicker() {
-        let years = [],
+        let that=this,
+            years = [],
             months = [],
             days = [],
             hours = [],
@@ -239,56 +271,80 @@ export default class extends Component {
         for (let i = 1; i < 32; i++) {
             days.push(i);
         }
-        for (let i = 1; i < 61; i++) {
-            minutes.push(i);
+        for (let i = 0; i < 61; i++) {
+            if(i<10){
+                minutes.push("0"+i);
+            }else{
+                minutes.push(i);
+            }
         }
-        let pickerData = [years, months, days, ['am', 'pm'], hours, minutes];
-        let date = new Date();
-        let selectedValue = [
-            [date.getFullYear()],
-            [date.getMonth() + 1],
-            [date.getDate()],
-            [date.getHours() > 11 ? 'pm' : 'am'],
-            [date.getHours() === 12 ? 12 : date.getHours() % 12],
-            [date.getMinutes()]
-        ];
+        let pickerData = [hours, minutes, ['am', 'pm'], ["to"], hours, minutes, ['am', 'pm']];
+        let selectedValue = [...this.state.beginTime,'to',...this.state.endTime];
         Picker.init({
             pickerData,
-            selectedValue,
+            selectedValue:selectedValue,
             pickerTitleText: 'Select Date and Time',
-            wheelFlex: [2, 1, 1, 2, 1, 1],
+            wheelFlex: [1, 1, 1, 1, 1, 1],
             onPickerConfirm: pickedValue => {
+                that.setState({
+                    beginTime: pickedValue.slice(0,3),
+                    endTime:pickedValue.slice(4)
+                });
                 console.log('area', pickedValue);
             },
             onPickerCancel: pickedValue => {
                 console.log('area', pickedValue);
             },
             onPickerSelect: pickedValue => {
-                let targetValue = [...pickedValue];
-                if (parseInt(targetValue[1]) === 2) {
-                    if (targetValue[0] % 4 === 0 && targetValue[2] > 29) {
-                        targetValue[2] = 29;
-                    }
-                    else if (targetValue[0] % 4 !== 0 && targetValue[2] > 28) {
-                        targetValue[2] = 28;
-                    }
-                }
-                else if (targetValue[1] in {4: 1, 6: 1, 9: 1, 11: 1} && targetValue[2] > 30) {
-                    targetValue[2] = 30;
+                // let targetValue = [...pickedValue];
+                // if (parseInt(targetValue[1]) === 2) {
+                //     if (targetValue[0] % 4 === 0 && targetValue[2] > 29) {
+                //         targetValue[2] = 29;
+                //     }
+                //     else if (targetValue[0] % 4 !== 0 && targetValue[2] > 28) {
+                //         targetValue[2] = 28;
+                //     }
+                // }
+                // else if (targetValue[1] in {4: 1, 6: 1, 9: 1, 11: 1} && targetValue[2] > 30) {
+                //     targetValue[2] = 30;
+                //
+                // }
+                // // forbidden some value such as some 2.29, 4.31, 6.31...
+                // if (JSON.stringify(targetValue) !== JSON.stringify(pickedValue)) {
+                //     // android will return String all the time，but we put Number into picker at first
+                //     // so we need to convert them to Number again
+                //     targetValue.map((v, k) => {
+                //         if (k !== 3) {
+                //             targetValue[k] = parseInt(v);
+                //         }
+                //     });
+                //     Picker.select(targetValue);
+                //     pickedValue = targetValue;
+                // }
+            }
+        });
+        Picker.show();
+    }
 
-                }
-                // forbidden some value such as some 2.29, 4.31, 6.31...
-                if (JSON.stringify(targetValue) !== JSON.stringify(pickedValue)) {
-                    // android will return String all the time，but we put Number into picker at first
-                    // so we need to convert them to Number again
-                    targetValue.map((v, k) => {
-                        if (k !== 3) {
-                            targetValue[k] = parseInt(v);
-                        }
-                    });
-                    Picker.select(targetValue);
-                    pickedValue = targetValue;
-                }
+    _showNotificationPicker() {
+        let that = this;
+        let pickerData = ["10分钟之前", '20分钟之前', '半小时之前', '40分钟之前', '50分钟之前', '1小时之前'];
+        Picker.init({
+            pickerData,
+            selectedValue: this.state.Notification,
+            pickerTitleText: 'Select Date and Time',
+            wheelFlex: [2, 1, 1, 2, 1, 1],
+            onPickerConfirm: pickedValue => {
+                that.setState({
+                    Notification: pickedValue
+                });
+                console.log('area', pickedValue);
+            },
+            onPickerCancel: pickedValue => {
+                console.log('area', pickedValue);
+            },
+            onPickerSelect: pickedValue => {
+
             }
         });
         Picker.show();
@@ -370,6 +426,20 @@ const styles = StyleSheet.create({
         borderBottomColor: '#1d1d26',
         marginBottom: 2,
     },
+    timePicker:{
+        flexDirection: 'row',
+        alignItems: "center",
+        height: 90,
+        paddingVertical:20,
+        paddingHorizontal: 26,
+        borderBottomWidth: Util.pixel,
+        borderBottomColor: '#1d1d26',
+        marginBottom: 2,
+    },
+    time:{
+        flex:1,
+        justifyContent:'center',
+    },
     item_label: {
         fontSize: 14,
         flex: 1,
@@ -383,5 +453,9 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         width: 22,
         height: 22
+    },
+    timeSub:{
+        width:22,
+        marginLeft:60
     }
 });
