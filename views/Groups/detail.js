@@ -73,7 +73,7 @@ export default class extends Component {
                             <TouchableOpacity onPress={() => {
                                 this.props.navigation.goBack()
                             }}>
-                                <Image source={require('../../images/icon-back.png')} style={styles.iconMenu}
+                                <Image source={require('../../images/icon-Back.png')} style={styles.iconMenu}
                                        resizeMode="stretch"/>
                             </TouchableOpacity>
                             <View style={styles.avatar_con}>
