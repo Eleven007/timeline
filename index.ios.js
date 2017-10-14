@@ -4,21 +4,42 @@
  * @flow
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View
 } from 'react-native';
 import Routers from './views/StackNavigator';
+
 export default class timeline extends Component {
-    render() {
-        return (
-            <Routers>
-            </Routers>
-        );
-    }
+  render() {
+    return (
+        <Routers>
+
+        </Routers>
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
 
 AppRegistry.registerComponent('timeline', () => timeline);
