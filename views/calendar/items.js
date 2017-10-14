@@ -60,14 +60,13 @@ export default class extends Component {
         super(props);
         this.state = {
             selectday: {
-                borderBottomWidth: Util.pixel,
+                borderBottomWidth: 2,
                 borderBottomColor: '#ffffff',
-            },
+            }
         }
     }
 
     componentDidMount() {
-
     }
 
     render() {
@@ -171,18 +170,18 @@ export default class extends Component {
             month:{}
         };
         obj['select' + type]={
-            borderBottomWidth: Util.pixel,
+            borderBottomWidth: 2,
             borderBottomColor: '#ffffff',
         };
-        this.setState(obj);
-        delete items[type];
         for (let val in items){
             let newObj = {};
             newObj['select' + val] = {
-
+                borderBottomWidth: 0,
+                borderBottomColor: 'transparent',
             };
             this.setState(newObj);
         }
+        this.setState(obj);
     }
 }
 const styles = StyleSheet.create({

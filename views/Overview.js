@@ -349,17 +349,15 @@ const styles = StyleSheet.create({
     },
     parentSlide: {
         height: 50,
-        justifyContent: 'center',
+        // justifyContent: 'center',
     },
     childSlide:{
         height: 30,
         width:300,
-        justifyContent: 'center',
+
     },
     wrapper: {
-        flex:1,
-        justifyContent:"center",
-        alignItems:'center'
+
     },
     slide1: {
         flex:1,
