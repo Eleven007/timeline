@@ -300,7 +300,7 @@ export default class extends Component {
                         </View>
                     </View>
 
-                    <View style={{marginTop: 30, paddingLeft: 15, flex: 1}}>
+                    <View style={{marginTop: 30, flex: 1}}>
                         <ScrollView>
                             {items}
                         </ScrollView>

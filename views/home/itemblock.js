@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     time:{
-        width:50,
+        width:80,
         alignItems:'center',
         paddingRight:20,
     },
