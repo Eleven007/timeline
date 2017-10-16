@@ -15,6 +15,7 @@ import {
     StyleSheet,
     TextInput,
     Alert,
+    ART,
     AsyncStorage
 } from 'react-native';
 import Util from '../common/util';

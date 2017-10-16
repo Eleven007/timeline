@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 import Util from './common/util';
 import Service from './common/Service';
+import Picker from 'react-native-picker';
 export default class extends Component {
     constructor(props) {
         super(props);
@@ -67,6 +68,9 @@ export default class extends Component {
                                                username: val
                                            })
                                        }}
+                                       onFocus={()=>{
+                                           Picker.hide();
+                                       }}
                             >
                             </TextInput>
                         </View>
@@ -81,6 +85,9 @@ export default class extends Component {
                                            this.setState({
                                                email: val
                                            })
+                                       }}
+                                       onFocus={()=>{
+                                           Picker.hide();
                                        }}
                             >
                             </TextInput>
@@ -97,6 +104,9 @@ export default class extends Component {
                                                password: val
                                            })
                                        }}
+                                       onFocus={()=>{
+                                           Picker.hide();
+                                       }}
                             >
                             </TextInput>
                         </View>
@@ -109,9 +119,9 @@ export default class extends Component {
                                 borderBottomWidth: 1,
                                 borderBottomColor: '#565764',}}>
                                 <TouchableOpacity onPress={
-                                    this._selectDate.bind(this)
+                                    () => this._showDatePicker()
                                 }>
-                                    <Text style={[{color:'#ffffff',fontSize:14}]}>{this.state.birthday||"Birthday"}</Text>
+                                    <Text style={[{color:'#ffffff',fontSize:14}]}>{this.state.birthday ? (this.state.birthday[0] + this.state.birthday[1] + this.state.birthday[2]) : "Birthday"}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -132,38 +142,79 @@ export default class extends Component {
             </ImageBackground>
         )
     }
-    _selectDate(){
-        let that=this;
-        try {
-            DatePickerAndroid.open({
-                // 要设置默认值为今天的话，使用`new Date()`即可。
-                // 下面显示的会是2020年5月25日。月份是从0开始算的。
-                date: new Date()
-            }).then(function ({action, year, month, day}) {
-                if (action === DatePickerAndroid.dateSetAction) {
-                    // 这里开始可以处理用户选好的年月日三个参数：year, month (0-11), day
-                    that.setState({
-                        birthday:year+"-"+month+"-"+day
-                    })
+    _createDateData() {
+        let date = [];
+        for (let i = 1950; i < 2050; i++) {
+            let month = [];
+            for (let j = 1; j < 13; j++) {
+                let day = [];
+                if (j === 2) {
+                    for (let k = 1; k < 29; k++) {
+                        day.push(k + '日');
+                    }
+                    //Leap day for years that are divisible by 4, such as 2000, 2004
+                    if (i % 4 === 0) {
+                        day.push(29 + '日');
+                    }
                 }
-            });
-        } catch ({code, message}) {
-            console.warn('Cannot open date picker', message);
+                else if (j in {1: 1, 3: 1, 5: 1, 7: 1, 8: 1, 10: 1, 12: 1}) {
+                    for (let k = 1; k < 32; k++) {
+                        day.push(k + '日');
+                    }
+                }
+                else {
+                    for (let k = 1; k < 31; k++) {
+                        day.push(k + '日');
+                    }
+                }
+                let _month = {};
+                _month[j + '月'] = day;
+                month.push(_month);
+            }
+            let _date = {};
+            _date[i + '年'] = month;
+            date.push(_date);
         }
+        return date;
+    }
+
+    _showDatePicker() {
+        let that = this;
+        let Date = this.state.date;
+        Picker.init({
+            pickerData: this._createDateData(),
+            pickerToolBarFontSize: 16,
+            selectedValue: Date,
+            pickerTitleText: 'date picker',
+            pickerFontSize: 16,
+            pickerFontColor: [255, 0, 0, 1],
+            onPickerConfirm: (pickedValue, pickedIndex) => {
+                that.setState({
+                    birthday: pickedValue
+                });
+                console.log('date', pickedValue, pickedIndex);
+            },
+            onPickerCancel: (pickedValue, pickedIndex) => {
+                console.log('date', pickedValue, pickedIndex);
+            },
+            onPickerSelect: (pickedValue, pickedIndex) => {
+                console.log('date', pickedValue, pickedIndex);
+            }
+        });
+        Picker.show();
     }
     register(){
         const {goBack} = this.props.navigation;
+        let [year,month,day] = this.state.birthday;
         let loginURL=Service.host+Service.addUser;
         let username = this.state.username;
         let password = this.state.password;
         let email=this.state.email;
-        let birthday=this.state.birthday;
         const that=this;
-        if (!username || !password||!email||!birthday) {
+        if (!username || !password||!email||!year) {
             Alert.alert('提示', '用户名或密码不能为空');
             return false;
         }
-        birthday=birthday.split("-");
         that.setState({
             isLoadingShow:true
         });
@@ -171,7 +222,7 @@ export default class extends Component {
             username:username,
             password:password,
             email:email,
-            birthday:new Date(birthday[0],birthday[1]-1,birthday[2])
+            birthday:new Date(year.slice(0,-1),month.slice(0,-1)-1,day.slice(0,-1))
         },function (data) {
             that.setState({
                 isLoadingShow:false

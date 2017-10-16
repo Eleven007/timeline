@@ -34,11 +34,11 @@ let noteList = [
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -50,15 +50,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -70,15 +70,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -90,15 +90,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -110,15 +110,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -130,15 +130,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -150,15 +150,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -170,15 +170,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -190,15 +190,15 @@ let noteList = [
         people: [{
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }, {
             userId: '11111',
             name: "用户1",
-            avatar: 'http://mall-1253118667.cossh.myqcloud.com/user.jpg'
+            avatar: 'https://mall-1253118667.cossh.myqcloud.com/user.jpg'
         }]
     },
     {
@@ -233,8 +233,8 @@ import {
     StyleSheet,
     AsyncStorage
 } from 'react-native';
-import Swiper from 'react-native-swiper';
-import Util from './common/util';
+import Util from '../common/util';
+import NoteItem from './itemblock';
 export default class extends Component {
     constructor(props) {
         super(props);
@@ -245,67 +245,78 @@ export default class extends Component {
     }
 
     render() {
+        let items = [];
+        let that = this;
+        noteList.map(function (val, index) {
+            items.push(
+                <NoteItem time={val.time}
+                          id={val.id}
+                          timeStatus={val.timeStatus}
+                          title={val.title}
+                          desc={val.desc}
+                          people={val.people}
+                          key={val.id}
+                          nav={that.props.navigation.navigate}
+                />
+            )
+        });
         return (
-            <ImageBackground source={require('../images/Background5.png')} style={styles.backgroundImage}>
-                <View style={styles.container}>
-                    <View style={styles.menu}>
-                        <TouchableOpacity onPress={() => {
-                            this.props.navigation.navigate('DrawerOpen')
-                        }}>
-                            <Image source={require('../images/icon-Menu.png')} style={styles.iconMenu}
-                                   resizeMode="stretch"/>
-                        </TouchableOpacity>
-                        <View style={styles.avatar_con}>
+            <View style={styles.container}>
+                <View style={{height: 310}}>
+                    <ImageBackground source={require('../../images/Background10.png')} style={styles.backgroundImage}>
+                        <View style={styles.menu}>
                             <TouchableOpacity onPress={() => {
-                                this.props.navigation.navigate('Settings')
+                                this.props.screenProps.drawerNav('DrawerOpen')
                             }}>
-                                <Image source={require('../images/Avatar.png')} style={styles.avatar}
+                                <Image source={require('../../images/icon-Menu.png')} style={styles.iconMenu}
                                        resizeMode="stretch"/>
                             </TouchableOpacity>
+                            <View style={styles.avatar_con}>
+                                <TouchableOpacity onPress={() => {
+                                    this.props.screenProps.drawerNav('Settings')
+                                }}>
+                                    <Image source={require('../../images/Avatar.png')} style={styles.avatar}
+                                           resizeMode="stretch"/>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.parentSlide}>
-                        <Swiper style={styles.wrapper}
-                                showsButtons={true}
-                                showsPagination={false}
-                                prevButton={<Image style={{width:10,height:17}} source={require('../images/prev.png')}></Image>}
-                                nextButton={<Image style={{width:10,height:17}} source={require('../images/next.png')}></Image>}>
-                            <View style={styles.slide1}>
-                                <Text style={styles.text} >Hello Swiper</Text>
-                            </View>
-                            <View style={styles.slide2}>
-                                <Text style={styles.text}>Beautiful</Text>
-                            </View>
-                            <View style={styles.slide3}>
-                                <Text style={styles.text}>And simple</Text>
-                            </View>
-                        </Swiper>
-                    </View>
-                    <View style={{alignItems:'center',marginTop:20}}>
-                        <View style={styles.childSlide}>
-                            <Swiper style={styles.wrapper}
-                                    showsButtons={true}
-                                    showsPagination={false}
-                                    prevButton={<Image style={{width:10,height:17}} source={require('../images/prev.png')}></Image>}
-                                    nextButton={<Image style={{width:10,height:17}} source={require('../images/next.png')}></Image>}>
-                                <View style={styles.slide1}>
-                                    <Text style={styles.text2} >Hello Swiper</Text>
+                        <View style={{paddingHorizontal: 25, flexDirection: 'row', marginTop: 40}}>
+                            <View style={[styles.left, styles.flex]}>
+                                <View >
+                                    <Text style={styles.week}>Adam Lane</Text>
                                 </View>
-                                <View style={styles.slide2}>
-                                    <Text style={styles.text2}>Beautiful</Text>
+                                <View >
+                                    <Text style={styles.date}>Photographer</Text>
                                 </View>
-                                <View style={styles.slide3}>
-                                    <Text style={styles.text2}>And simple</Text>
-                                </View>
-                            </Swiper>
+                            </View>
                         </View>
+                    </ImageBackground>
+                </View>
+                <View style={{paddingHorizontal: 25,height:70,flexDirection:'row',alignItems:'center',backgroundColor:' rgb(248, 248, 248)'}}>
+                    <Text style={{color: 'rgb(29, 29, 38)',flex:1}}>JANUARY 2015</Text>
+                    <View style={styles.switch}>
+                        <TouchableOpacity>
+                            <Image source={require('../../images/pv.png')} style={{width:9,height:16,marginRight:56}}  resizeMode="stretch"></Image>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Image source={require('../../images/nt.png')} style={{width:9,height:16}}  resizeMode="stretch"></Image>
+                        </TouchableOpacity>
                     </View>
                 </View>
-            </ImageBackground>
+                <View style={{paddingLeft: 25, flex: 1,backgroundColor:'#ffffff'}}>
+                    <ScrollView>
+                        {items}
+                    </ScrollView>
+                </View>
+            </View>
+
         )
     }
 }
 const styles = StyleSheet.create({
+    switch:{
+      flexDirection:'row'
+    },
     flex: {
         flex: 1,
     },
@@ -347,39 +358,48 @@ const styles = StyleSheet.create({
         height: 30,
         borderRadius: 15,
     },
-    parentSlide: {
-        height: 50,
-        // justifyContent: 'center',
+    left: {
+        alignItems: 'flex-start'
     },
-    childSlide:{
-        height: 30,
-        width:300,
-        // justifyContent: 'center',
+    right: {
+        alignItems: 'flex-end'
     },
-    wrapper: {
-
+    week: {
+        fontSize: 35,
+        color: '#fff'
     },
-    slide1: {
-        flex:1,
-        justifyContent: 'center',
+    date: {
+        fontSize: 12,
+        color: 'rgba(255, 255, 255, 0.6)',
+        marginTop: 10
+    },
+    weather: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    icon_weather: {
+        width: 25,
+        height: 25
+    },
+    local: {
+        fontSize: 12,
+        color: 'rgba(255, 255, 255, 0.6)',
+        marginTop: 10
+    },
+    add: {
+        position: 'absolute',
+        bottom: 15,
+        right: 15,
+        width: 55,
+        height: 55,
         alignItems: 'center',
-    },
-    slide2: {
-        flex:1,
         justifyContent: 'center',
-        alignItems: 'center',
+        zIndex: 11111,
+        backgroundColor: '#ff3366',
+        borderRadius: 55,
     },
-    slide3: {
-        flex:1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    text: {
-        color: '#fff',
-        fontSize: 30,
-    },
-    text2:{
-        color: '#fff',
-        fontSize: 16,
+    icon_add: {
+        width: 22,
+        height: 22
     }
 });
