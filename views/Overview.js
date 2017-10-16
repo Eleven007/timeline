@@ -349,16 +349,10 @@ const styles = StyleSheet.create({
     },
     parentSlide: {
         height: 50,
-        // justifyContent: 'center',
     },
     childSlide:{
         height: 30,
         width:300,
-<<<<<<< HEAD
-        // justifyContent: 'center',
-=======
-
->>>>>>> 9e36894ae3efbb4716e759d8b206fe06337a343d
     },
     wrapper: {
 
