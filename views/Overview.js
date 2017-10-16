@@ -354,7 +354,11 @@ const styles = StyleSheet.create({
     childSlide:{
         height: 30,
         width:300,
+<<<<<<< HEAD
         // justifyContent: 'center',
+=======
+
+>>>>>>> 9e36894ae3efbb4716e759d8b206fe06337a343d
     },
     wrapper: {
 
