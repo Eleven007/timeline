@@ -158,7 +158,7 @@ export default class extends Component {
     }
 
     _login() {
-        let loginURL = Service.host + Service.login;
+        let loginURL = Service.host + Service.userUri.login;
         let username = this.state.username;
         let password = this.state.password;
         const that = this;

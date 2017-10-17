@@ -18,7 +18,7 @@ let Util = {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height
     },
-    //post请求
+    //普通post请求
     post: function (url, data, callback) {
         let fetchOption = {
             method: 'POST',
@@ -38,14 +38,14 @@ let Util = {
             });
 
     },
-    getJSON: function (url, successCallback, failCallback) {
-        fetch(url)
+    getJSON: function (url,fetchOption, successCallback, failCallback) {
+        fetch(url,fetchOption)
             .then((response) => response.text())
             .then((responseText) => {
-                successCallback(JSON.parse(responseText));
+                successCallback&&successCallback(JSON.parse(responseText));
             })
             .catch((error) => {
-                failCallback(error);
+                failCallback&&failCallback(error);
             });
     },
     /*loading效果*/
@@ -55,12 +55,12 @@ let Util = {
         justifyContent: 'center',
         zIndex: 100000,
         flex: 1,
-        height:60,
-        width:60,
-        backgroundColor:'rgba(52, 52, 52, 0.8)',
-        borderRadius:10,
-        left:Dimensions.get('window').width/2-30,
-        top:Dimensions.get('window').height/2-30,
+        height: 60,
+        width: 60,
+        backgroundColor: 'rgba(52, 52, 52, 0.8)',
+        borderRadius: 10,
+        left: Dimensions.get('window').width / 2 - 30,
+        top: Dimensions.get('window').height / 2 - 30,
     }}>
         <ActivityIndicator size="large" color="#ffffff"/>
     </View>

@@ -5,7 +5,13 @@
  * 历史修订：
  */
 const db=require('../db').sequelize();
-let users = require('./Users');
+let users = db.import('./Users');
+let notes = db.import('./Notes');
 // 同步模型到数据库中
-db.sync();
+users.belongsToMany(notes,{through: 'user2Note',as:'User2Note'});
+notes.belongsToMany(users, {through: 'user2Note',as:'User2Note'});
+db.sync().then(function (result) {
+
+});
 exports.Users = users;
+exports.Notes = notes;

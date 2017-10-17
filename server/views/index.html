@@ -9,19 +9,26 @@
 
 </body>
 <script type="text/javascript">
+    var uri='/note/create';
+    var dataObj={
+        userId:2,
+        title: "Finish Home Screen",
+        desc: 'Web App',
+        location: '武汉',
+        notification: '20分钟之前',
+        repeat: 'none',
+        date: new Date(),
+        beginTime: '9:00',
+        endTime: '10:00',
+        timestatus: 1
+    };
     $.ajax({
         type:"POST",
-        url:'http://localhost:3333/user/create',
-        dataType:'json',
-        data:{
-            'username': 'gy',
-            'password': 'gy',
-            'birthday':new Date(1991,10,7),
-            'email': '845104375@qq.com',
-        }
+        url:'http://localhost:3333'+uri,
+        data:dataObj
     }).done(function (data) {
         $('body').append(JSON.stringify(data));
-    })
+    });
 </script>
 <!--<script type="text/javascript">-->
     <!--$.ajax({-->

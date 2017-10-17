@@ -24,7 +24,7 @@ export default class extends Component {
         this.props.people.map(function (val,index) {
             People.push(
                 <View key={index}>
-                    <Image source={{uri:val.avatar}} style={{width: 30, height: 30,borderRadius:15,marginRight:10}}/>
+                    <Image source={{uri:val.avator}} style={{width: 30, height: 30,borderRadius:15,marginRight:10}}/>
                 </View>
             )
         });

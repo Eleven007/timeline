@@ -57,6 +57,13 @@ let userControllers = {
         let password = util.md5(req.body.password);
         let birthday = req.body.birthday;
         let email = req.body.email;
+        let nickName=req.body.nickName;
+        let avator=req.body.avator;
+        let phone=req.body.phone;
+        let address=req.body.address;
+        let status=req.body.status||0;
+        let deviceId=req.body.deviceId;
+        let ip=req.body.ip;
         if (!username || !password || !birthday || !email) {
             return res.send({
                 status: 400,
@@ -65,11 +72,17 @@ let userControllers = {
         }
         try {
             let userobj = {
-                'userId': util.guid(),
                 'name': username,
                 'password': password,
                 'birthday': birthday,
                 'email': email,
+                'nickName':nickName,
+                'phone':phone,
+                'address':address,
+                'avator':avator,
+                'status':status,
+                'deviceId':deviceId,
+                'ip':ip,
                 'token': ''
             };
             co(function*() {
@@ -113,7 +126,7 @@ let userControllers = {
         } else {
             try {
                 User.findOne({
-                    attributes: ['userId', 'name', 'nickName', 'email', 'birthday', 'phone','avatar','token'],
+                    attributes: ['id', 'name', 'nickName', 'email', 'birthday', 'phone','avator','token'],
                     where: {
                         name: username,
                         password: password

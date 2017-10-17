@@ -234,27 +234,71 @@ import {
     AsyncStorage
 } from 'react-native';
 import Util from '../common/util';
+import Service from '../common/Service';
 import NoteItem from './itemblock';
+import co from 'co';
 export default class extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            week: '',
+            date: '',
+            weather: '',
+            city: '',
+            temp: '',
+            noteList:[],
+            isLoadingShow: true,
+        }
     }
 
     componentDidMount() {
-
+        let [weatherUri, weatherAppCode,noteUri] = [Service.weatherURL + '?city=' + '武汉', Service.weatherAppCode,Service.noteUri];
+        let that = this;
+        Util.getJSON(weatherUri, {
+            headers: {
+                "Authorization": "APPCODE " + weatherAppCode
+            }
+        }, function (json) {
+            if (json.status === '0') {
+                let monthArr=['January ', 'February', 'March', 'April', 'May ', 'June ', 'July', 'August ', 'September ', 'October ', 'November', 'December'];
+                let dateTime=new Date(json.result.date);
+                let dateStr = monthArr[dateTime.getMonth()]+','+dateTime.getDate()+','+dateTime.getFullYear();
+                that.setState({
+                    week: json.result.week,
+                    date: dateStr,
+                    weather: json.result.weather,
+                    city: json.result.city,
+                    temp: json.result.temp,
+                    isLoadingShow:false,
+                })
+            }
+        },function () {
+            that.setState({
+                isLoadingShow:false,
+            })
+        });
+        AsyncStorage.getItem('userInfo',  function (err,userInfo) {
+            let userId=JSON.parse(userInfo).id;
+            Util.getJSON(Service.host+noteUri.getNote+"?userId="+userId,{},function (json) {
+                that.setState({
+                    noteList:json.data
+                })
+            },function (e) {
+            })
+        });
     }
 
     render() {
         let items = [];
         let that = this;
-        noteList.map(function (val, index) {
+        this.state.noteList.map(function (val, index) {
             items.push(
-                <NoteItem time={val.time}
+                <NoteItem time={val.beginTime}
                           id={val.id}
-                          timeStatus={val.timeStatus}
+                          timeStatus={val.timestatus}
                           title={val.title}
                           desc={val.desc}
-                          people={val.people}
+                          people={val.User2Note||[]}
                           key={val.id}
                           nav={that.props.navigation.navigate}
                 />
@@ -262,55 +306,59 @@ export default class extends Component {
         });
         return (
             <ImageBackground source={require('../../images/Background4.png')} style={styles.backgroundImage}>
-                <View style={styles.container}>
-                    <View style={styles.menu}>
-                        <TouchableOpacity onPress={() => {
-                            this.props.screenProps.drawerNav('DrawerOpen')
-                        }}>
-                            <Image source={require('../../images/icon-Menu.png')} style={styles.iconMenu}
-                                   resizeMode="stretch"/>
-                        </TouchableOpacity>
-                        <View style={styles.avatar_con}>
+                {
+                    this.state.isLoadingShow ?
+                        Util.loading
+                        :  <View style={styles.container}>
+                        <View style={styles.menu}>
                             <TouchableOpacity onPress={() => {
-                                this.props.screenProps.drawerNav('Settings')
+                                this.props.screenProps.drawerNav('DrawerOpen')
                             }}>
-                                <Image source={require('../../images/Avatar.png')} style={styles.avatar}
+                                <Image source={require('../../images/icon-Menu.png')} style={styles.iconMenu}
                                        resizeMode="stretch"/>
                             </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={{paddingHorizontal: 25, flexDirection: 'row', marginTop: 40}}>
-                        <View style={[styles.left, styles.flex]}>
-                            <View >
-                                <Text style={styles.week}>Thursday</Text>
-                            </View>
-                            <View >
-                                <Text style={styles.date}>February 19, 2015</Text>
+                            <View style={styles.avatar_con}>
+                                <TouchableOpacity onPress={() => {
+                                    this.props.screenProps.drawerNav('Settings')
+                                }}>
+                                    <Image source={require('../../images/Avatar.png')} style={styles.avatar}
+                                           resizeMode="stretch"/>
+                                </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={[styles.right, styles.flex]}>
-                            <View style={styles.weather}>
-                                <Image source={require('../../images/icon-Sunny.png')} style={styles.icon_weather}
-                                       resizeMode="stretch"/>
-                                <Text style={{fontSize: 40, color: '#fff', marginLeft: 10}}>58°</Text>
+                        <View style={{paddingHorizontal: 25, flexDirection: 'row', marginTop: 40}}>
+                            <View style={[styles.left, styles.flex]}>
+                                <View >
+                                    <Text style={styles.week}>{this.state.week}</Text>
+                                </View>
+                                <View >
+                                    <Text style={styles.date}>{this.state.date}</Text>
+                                </View>
                             </View>
-                            <View >
-                                <Text style={styles.local}>San Francisco</Text>
+                            <View style={[styles.right, styles.flex]}>
+                                <View style={styles.weather}>
+                                    <Image source={require('../../images/icon-Sunny.png')} style={styles.icon_weather}
+                                           resizeMode="stretch"/>
+                                    <Text style={{fontSize: 40, color: '#fff', marginLeft: 10}}>{this.state.temp}°</Text>
+                                </View>
+                                <View >
+                                    <Text style={styles.local}>{this.state.city}</Text>
+                                </View>
                             </View>
                         </View>
-                    </View>
 
-                    <View style={{marginTop: 30, flex: 1}}>
-                        <ScrollView>
-                            {items}
-                        </ScrollView>
-                    </View>
-                    <TouchableOpacity style={styles.add}>
-                        <View>
-                            <Image source={require('../../images/icon-Plus.png')} style={styles.icon_add}/>
+                        <View style={{marginTop: 30, flex: 1}}>
+                            <ScrollView>
+                                {items}
+                            </ScrollView>
                         </View>
-                    </TouchableOpacity>
-                </View>
+                        <TouchableOpacity style={styles.add}>
+                            <View>
+                                <Image source={require('../../images/icon-Plus.png')} style={styles.icon_add}/>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                }
             </ImageBackground>
         )
     }

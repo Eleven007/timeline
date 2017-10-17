@@ -206,7 +206,7 @@ export default class extends Component {
     register(){
         const {goBack} = this.props.navigation;
         let [year,month,day] = this.state.birthday;
-        let loginURL=Service.host+Service.addUser;
+        let loginURL=Service.host+Service.userUri.addUser;
         let username = this.state.username;
         let password = this.state.password;
         let email=this.state.email;
