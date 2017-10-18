@@ -11,7 +11,7 @@ let Service = {
         loginByToken: '/user/login/token',
         getUser: '/user/get',
         addUser: '/user/create',
-        updatePassword: '/user/password/update',
+        updateUser: '/user/update',
         deleteUser: '/user/delete',
         getMessage: '/message/get',
         addMessage: '/message/add',

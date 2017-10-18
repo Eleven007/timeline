@@ -24,23 +24,39 @@ import area from '../common/area.json';
 export default class extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            date: ['2015年', '9月', '1日'],
-            Location: ['湖北', '武汉', '洪山区'],
-            Notification: ['20分钟之前'],
-            Repeat: "none",
-            beginTime: ['9', '00', 'am'],
-            endTime: ['10', '00', 'am'],
+        const noteId = this.props.navigation.state.params.noteId || "";
+        if(noteId){//修改
+
+        }else{//新增
+            this.checkTime = function (i) {
+                if (i < 10) {
+                    i = "0" + i
+                }
+                return i
+            };
+            let date=new Date();
+            let Hours=date.getHours()+8;
+            let Minutes=date.getMinutes();
+            this.state = {
+                date: [date.getFullYear() + '年', date.getMonth() + 1 + '月',date.getDate() + '日'],
+                Location: ['湖北', '武汉', '洪山区'],
+                Notification: ['20分钟之前'],
+                Repeat: "none",
+                beginTime: [Hours === 12 ? 12 : Hours%12, this.checkTime(Minutes),Hours > 11 ? 'pm' : 'am'],
+                endTime: [Hours+1 === 12 ? 12 : (Hours+1)%12, this.checkTime(Minutes),Hours+1 > 11 ? 'pm' : 'am'],
+                isEdit: false,
+                showTime: false
+            }
         }
     }
 
     componentDidMount() {
+        const noteId = this.props.navigation.state.params.noteId || "";
 
     }
 
     render() {
-        const {state, navigate, goBack} = this.props.navigation;
-        const noteId = state.params.noteId || "";
+        const {goBack} = this.props.navigation;
         return (
             <View style={styles.container}>
                 <View style={{height: 200}}>
@@ -76,7 +92,7 @@ export default class extends Component {
                         <View style={styles.item}>
                             <TextInput style={[styles.item_label, {paddingHorizontal: 0}]}
                                        placeholder="Please enter a title" value="Design Meeting"
-                                       underlineColorAndroid="transparent"/>
+                                       underlineColorAndroid="transparent" editable={this.state.isEdit}/>
                         </View>
                         <View style={styles.item}>
                             <Text style={styles.item_label}>Date</Text>
@@ -88,10 +104,10 @@ export default class extends Component {
                         </View>
                         <View style={styles.timePicker}>
                             <View style={styles.time}>
-                                <View style={{flex:1,justifyContent:'center'}}>
+                                <View style={{flex: 1, justifyContent: 'center'}}>
                                     <Text style={{}}>From</Text>
                                 </View>
-                                <View style={{flex:1,justifyContent:'center'}}>
+                                <View style={{flex: 1, justifyContent: 'center'}}>
                                     <TouchableOpacity onPress={this._showTimePicker.bind(this)}>
                                         <Text
                                             style={[styles.item_text]}>{this.state.beginTime[0] + ":" + this.state.beginTime[1] + this.state.beginTime[2]}</Text>
@@ -99,10 +115,10 @@ export default class extends Component {
                                 </View>
                             </View>
                             <View style={styles.time}>
-                                <View style={{flex:1,justifyContent:'center'}}>
+                                <View style={{flex: 1, justifyContent: 'center'}}>
                                     <Text style={{}}>To</Text>
                                 </View>
-                                <View style={{flex:1,justifyContent:'center'}}>
+                                <View style={{flex: 1, justifyContent: 'center'}}>
                                     <TouchableOpacity onPress={this._showTimePicker.bind(this)}>
                                         <Text
                                             style={[styles.item_text]}>{this.state.endTime[0] + ":" + this.state.endTime[1] + this.state.endTime[2]}</Text>
@@ -255,7 +271,7 @@ export default class extends Component {
     }
 
     _showTimePicker() {
-        let that=this,
+        let that = this,
             years = [],
             months = [],
             days = [],
@@ -273,23 +289,23 @@ export default class extends Component {
             days.push(i);
         }
         for (let i = 0; i < 61; i++) {
-            if(i<10){
-                minutes.push("0"+i);
-            }else{
+            if (i < 10) {
+                minutes.push("0" + i);
+            } else {
                 minutes.push(i);
             }
         }
         let pickerData = [hours, minutes, ['am', 'pm'], ["to"], hours, minutes, ['am', 'pm']];
-        let selectedValue = [...this.state.beginTime,'to',...this.state.endTime];
+        let selectedValue = [...this.state.beginTime, 'to', ...this.state.endTime];
         Picker.init({
             pickerData,
-            selectedValue:selectedValue,
+            selectedValue: selectedValue,
             pickerTitleText: 'Select Date and Time',
             wheelFlex: [1, 1, 1, 1, 1, 1],
             onPickerConfirm: pickedValue => {
                 that.setState({
-                    beginTime: pickedValue.slice(0,3),
-                    endTime:pickedValue.slice(4)
+                    beginTime: pickedValue.slice(0, 3),
+                    endTime: pickedValue.slice(4)
                 });
                 console.log('area', pickedValue);
             },
@@ -427,19 +443,19 @@ const styles = StyleSheet.create({
         borderBottomColor: '#1d1d26',
         marginBottom: 2,
     },
-    timePicker:{
+    timePicker: {
         flexDirection: 'row',
         alignItems: "center",
         height: 90,
-        paddingVertical:20,
+        paddingVertical: 20,
         paddingHorizontal: 26,
         borderBottomWidth: Util.pixel,
         borderBottomColor: '#1d1d26',
         marginBottom: 2,
     },
-    time:{
-        flex:1,
-        justifyContent:'center',
+    time: {
+        flex: 1,
+        justifyContent: 'center',
     },
     item_label: {
         fontSize: 14,
@@ -455,8 +471,8 @@ const styles = StyleSheet.create({
         width: 22,
         height: 22
     },
-    timeSub:{
-        width:22,
-        marginLeft:60
+    timeSub: {
+        width: 22,
+        marginLeft: 60
     }
 });

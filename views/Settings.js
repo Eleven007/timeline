@@ -14,12 +14,15 @@ import {
     ScrollView,
     StyleSheet,
     AsyncStorage,
+    Alert,
     TextInput,
     DatePickerAndroid
 } from 'react-native';
 import Util from './common/util';
+import Service from './common/Service';
 import Picker from 'react-native-picker';
 import area from './common/area.json';
+import ImagePicker from 'react-native-image-crop-picker';
 export default class extends Component {
     constructor(props) {
         super(props);
@@ -28,13 +31,24 @@ export default class extends Component {
                 borderBottomWidth: Util.pixel,
                 borderBottomColor: '#ffffff',
             },
-            birthday: ['2015年', '9月', '1日'],
-            location: ['湖北', '武汉', '洪山区'],
+            location:"",
+            name: "",
+            password: "",
+            email:"",
+            birthday:[],
+            avator:"",
+            isLoadingShow: false,
         }
     }
 
     componentDidMount() {
-
+        let that=this;
+        AsyncStorage.getItem("userInfo",function (err,userInfo){
+            let userObj=JSON.parse(userInfo);
+            let birth=new Date(userObj.birthday);
+            userObj.birthday=[birth.getFullYear()+"年",birth.getMonth()+1+"月",birth.getDate()+"日"];
+            that.setState(userObj);
+        });
     }
 
     render() {
@@ -54,8 +68,8 @@ export default class extends Component {
                                 </TouchableOpacity>
                                 <View style={styles.avatar_con}>
                                     <TouchableOpacity onPress={() => {
-                                        this.props.navigation.navigate('DrawerOpen');
                                         Picker.hide();
+                                        this._pickerImages();
                                     }}>
                                         <Image source={require('../images/icon-Camera.png')} style={styles.Camera}
                                                resizeMode="stretch"/>
@@ -106,9 +120,10 @@ export default class extends Component {
                                            placeholder="Name"
                                            placeholderTextColor="rgb(29, 29, 38)"
                                            underlineColorAndroid="transparent"
+                                           value={this.state.name}
                                            onChangeText={(val) => {
                                                this.setState({
-                                                   username: val
+                                                   name: val
                                                })
                                            }}
                                            onFocus={()=>{
@@ -124,6 +139,7 @@ export default class extends Component {
                                            placeholder="Email"
                                            placeholderTextColor="rgb(29, 29, 38)"
                                            underlineColorAndroid="transparent"
+                                           value={this.state.email}
                                            onChangeText={(val) => {
                                                this.setState({
                                                    email: val
@@ -143,6 +159,7 @@ export default class extends Component {
                                            placeholderTextColor="rgb(29, 29, 38)"
                                            underlineColorAndroid="transparent"
                                            secureTextEntry={true}
+                                           value={this.state.password}
                                            onChangeText={(val) => {
                                                this.setState({
                                                    password: val
@@ -170,7 +187,7 @@ export default class extends Component {
                                         <Text style={[{
                                             color: 'rgb(29, 29, 38)',
                                             fontSize: 14
-                                        }]}>{this.state.birthday ? (this.state.birthday[0] + this.state.birthday[1] + this.state.birthday[2]) : "Birthday"}</Text>
+                                        }]}>{this.state.birthday ? this.state.birthday : "Birthday"}</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -190,19 +207,24 @@ export default class extends Component {
                                         <Text style={[{
                                             color: 'rgb(29, 29, 38)',
                                             fontSize: 14
-                                        }]}>{this.state.location ? (this.state.location[0] + this.state.location[1] + this.state.location[2]) : "location"}</Text>
+                                        }]}>{this.state.location ? this.state.location: "location"}</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
                             <TouchableOpacity onPress={this._modify.bind(this)}>
                                 <View style={[styles.flex, styles.center]}>
                                     <View style={styles.btn}>
-                                        <Text style={styles.btn_text}>Logout</Text>
+                                        <Text style={styles.btn_text}>提交修改</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>
                         </View>
                     </View>
+                    {
+                        this.state.isLoadingShow ?
+                            Util.loading
+                            :null
+                    }
                 </ScrollView>
             </View>
         )
@@ -266,7 +288,7 @@ export default class extends Component {
 
     _showDatePicker() {
         let that = this;
-        let Date = this.state.date;
+        let Date = this.state.birthday;
         Picker.init({
             pickerData: this._createDateData(),
             pickerToolBarFontSize: 16,
@@ -312,12 +334,12 @@ export default class extends Component {
         let that = this;
         Picker.init({
             pickerData: this._createAreaData(),
-            selectedValue: this.state.Location,
+            selectedValue: this.state.location?this.state.location.split(","):[],
             pickerTitleText: 'area picker',
             onPickerConfirm: pickedValue => {
                 console.log('area', pickedValue);
                 that.setState({
-                    location: pickedValue
+                    location: pickedValue.join(",")
                 });
             },
             onPickerCancel: pickedValue => {
@@ -330,37 +352,53 @@ export default class extends Component {
         });
         Picker.show();
     }
-
-
+    _pickerImages(){
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log(image);
+        });
+    }
     _modify() {
         const {goBack} = this.props.navigation;
-        let loginURL = Service.host + Service.addUser;
-        let username = this.state.username;
+        let userId=this.state.id;
+        let [year,month,day] = this.state.birthday;
+        let updateURL=Service.host+Service.userUri.updateUser;
+        let username = this.state.name;
         let password = this.state.password;
-        let email = this.state.email;
-        let birthday = this.state.birthday;
-        const that = this;
-        if (!username || !password || !email || !birthday) {
+        let email=this.state.email;
+        let location=this.state.location;
+        const that=this;
+        if (!username || !password||!email||!year) {
             Alert.alert('提示', '用户名或密码不能为空');
             return false;
         }
-        birthday = birthday.split("-");
         that.setState({
             isLoadingShow: true
         });
-        Util.post(loginURL, {
-            username: username,
+        let newUserInfo={
+            id:userId,
+            name: username,
             password: password,
             email: email,
-            birthday: new Date(birthday[0], birthday[1] - 1, birthday[2])
-        }, function (data) {
+            birthday: new Date(year.slice(0,-1),month.slice(0,-1)-1,day.slice(0,-1)),
+            location:location
+        };
+        Util.post(updateURL,newUserInfo, function (data) {
             that.setState({
                 isLoadingShow: false
             });
             if (data.status === 200) {
-                Alert.alert('提示', '注册成功', [
-                    {text: 'OK', onPress: () => goBack()},
+                Alert.alert('提示', '修改成功', [
+                    {text: 'OK', onPress: () => {}},
                 ],);
+                AsyncStorage.setItem('userInfo', JSON.stringify(newUserInfo), function (err) {
+                    if (err) {
+                        Alert.alert('提示', '登录失败！请刷新重试');
+                    }
+                })
             } else {
                 Alert.alert('提示', data.msg);
             }

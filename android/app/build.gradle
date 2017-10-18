@@ -95,6 +95,7 @@ android {
 
     defaultConfig {
         applicationId "com.timeline"
+        vectorDrawables.useSupportLibrary = true
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -133,6 +134,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-crop-picker')
     compile project(':react-native-picker')
     compile project(':react-native-device-info')
     compile fileTree(dir: "libs", include: ["*.jar"])

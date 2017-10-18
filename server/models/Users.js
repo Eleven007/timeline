@@ -29,6 +29,9 @@ module.exports = function (sequelize, DataTypes) {
         phone: {
             type: DataTypes.STRING,
         },
+        location:{
+            type: DataTypes.STRING,
+        },
         address: {
             type: DataTypes.STRING,
         },

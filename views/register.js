@@ -99,6 +99,7 @@ export default class extends Component {
                                        placeholder="Password"
                                        placeholderTextColor="#ffffff"
                                        underlineColorAndroid="transparent"
+                                       secureTextEntry={true}
                                        onChangeText={(val) => {
                                            this.setState({
                                                password: val

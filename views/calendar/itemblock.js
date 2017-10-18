@@ -32,6 +32,9 @@ export default class extends Component {
                 if(this.props.data.id){
                     this.props.nav('Detail', {
                         noteId: this.props.data.id,
+                        title:this.props.data.title,
+                        desc:this.props.data.desc,
+
                     })
                 }
             }}>

@@ -151,6 +151,7 @@ const ModalStack = DrawerNavigator({
     }
 }, {
     drawerWidth: 315, // 抽屉宽
+    useNativeAnimations:false,
     drawerPosition: 'left', // 抽屉在左边还是右边
     contentComponent: (props) => {
         return (

@@ -14,7 +14,7 @@ let userControllers = {
         app.post('/user/create', this.addUser);
         app.post('/user/login', this.login);
         app.post('/user/login/token', this.loginByToken);
-        app.post('/user/password/update', this.updatePassword);
+        app.post('/user/update', this.updateUser);
         app.post('/user/delete', this.deleteUser);
     },
     //获取用户信息
@@ -126,7 +126,6 @@ let userControllers = {
         } else {
             try {
                 User.findOne({
-                    attributes: ['id', 'name', 'nickName', 'email', 'birthday', 'phone','avator','token'],
                     where: {
                         name: username,
                         password: password
@@ -176,25 +175,34 @@ let userControllers = {
         //     info: 'token失效'
         // })
     },
-    updatePassword: function (req, res) {
-        // let token = req.body.token;
-        // let oldPassword = util.md5(req.body.oldPassword);
-        // let password = util.md5(req.body.password);
-        // let content = JSON.parse(fs.readFileSync(USER_PATH));
-        // for (let i in content) {
-        //     if (token === content[i].token && oldPassword === content[i].password) {
-        //         content[i].password = password;
-        //         fs.writeFileSync(USER_PATH, JSON.stringify(content));
-        //         return res.send({
-        //             status: 1,
-        //             data: '更新成功'
-        //         })
-        //     }
-        // }
-        // return res.send({
-        //     status: 0,
-        //     data: '更新失败！没有找到该用户或者初始密码错误！'
-        // })
+    updateUser: function (req, res) {
+        let userId=req.body.id;
+        if (!userId) {
+            return res.send({
+                status: 400,
+                msg: '缺少必要的参数'
+            })
+        }
+        try {
+            let userObj=req.body;
+            delete userObj.id;
+            userObj.password=util.md5(req.body.password);
+            User.update(userObj,{
+                where:{
+                    id:userId
+                }
+            }).then(function (result) {
+                return res.send({
+                    status: 200,
+                    msg: '修改成功！'
+                })
+            })
+        }catch (e){
+            return res.send({
+                status: 400,
+                msg: e
+            })
+        }
     },
     deleteUser: function (req, res) {
         // let token = req.body.token;

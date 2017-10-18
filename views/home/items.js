@@ -231,7 +231,8 @@ import {
     Image,
     ScrollView,
     StyleSheet,
-    AsyncStorage
+    AsyncStorage,
+    RefreshControl
 } from 'react-native';
 import Util from '../common/util';
 import Service from '../common/Service';
@@ -248,6 +249,7 @@ export default class extends Component {
             temp: '',
             noteList:[],
             isLoadingShow: true,
+            isRefreshing:false,
         }
     }
 
@@ -287,7 +289,19 @@ export default class extends Component {
             })
         });
     }
-
+    _onRefresh(){
+        let noteUri = Service.noteUri;
+        let that = this;
+        AsyncStorage.getItem('userInfo',  function (err,userInfo) {
+            let userId=JSON.parse(userInfo).id;
+            Util.getJSON(Service.host+noteUri.getNote+"?userId="+userId,{},function (json) {
+                that.setState({
+                    noteList:json.data
+                })
+            },function (e) {
+            })
+        });
+    }
     render() {
         let items = [];
         let that = this;
@@ -339,6 +353,7 @@ export default class extends Component {
                                 <View style={styles.weather}>
                                     <Image source={require('../../images/icon-Sunny.png')} style={styles.icon_weather}
                                            resizeMode="stretch"/>
+                                    <Text style={{fontSize: 16, color: '#fff', marginLeft: 10}}>{this.state.weather}</Text>
                                     <Text style={{fontSize: 40, color: '#fff', marginLeft: 10}}>{this.state.temp}°</Text>
                                 </View>
                                 <View >
@@ -348,7 +363,17 @@ export default class extends Component {
                         </View>
 
                         <View style={{marginTop: 30, flex: 1}}>
-                            <ScrollView>
+                            <ScrollView  refreshControl={
+                                <RefreshControl
+                                    refreshing={this.state.isRefreshing}
+                                    onRefresh={this._onRefresh}
+                                    tintColor="#ff0000"
+                                    title="Loading..."
+                                    titleColor="#00ff00"
+                                    colors={['#ff0000', '#00ff00', '#0000ff']}
+                                    progressBackgroundColor="#ffff00"
+                                />
+                            }>
                                 {items}
                             </ScrollView>
                         </View>

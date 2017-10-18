@@ -178,6 +178,7 @@ export default class extends Component {
             });
             if (data.status === 200) {
                 let user = data.data;
+                user.password=password;
                 AsyncStorage.setItem('userInfo', JSON.stringify(user), function (err) {
                     if (err) {
                         Alert.alert('提示', '登录失败！请刷新重试');
