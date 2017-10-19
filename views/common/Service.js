@@ -22,6 +22,9 @@ let Service = {
         updateNote: '/note/update',
         deleteNote: '/note/delete',
     },
+    uploadUri:{
+       uploadImage: '/upload/uploadImage'
+    },
     //天气预报API
     weatherURL: 'http://jisutqybmf.market.alicloudapi.com/weather/query',
     weatherAppCode: '7105eecd75404cb5b4bfab8829cc0d15'

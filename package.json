@@ -12,6 +12,7 @@
 		"react-native-device-info": "^0.12.1",
 		"react-native-image-crop-picker": "^0.17.3",
 		"react-native-picker": "^4.2.0",
+		"react-native-splash-screen": "^3.0.1",
 		"react-native-swiper": "^1.5.13",
 		"react-navigation": "^1.0.0-beta.11"
 	},

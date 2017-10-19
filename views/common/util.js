@@ -38,6 +38,26 @@ let Util = {
             });
 
     },
+    //post请求
+    postJSON: function (url, option, callback) {
+        let defaultOption = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        };
+        let fetchOption = Object.assign(defaultOption, option);
+        fetch(url, fetchOption)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                callback(responseJson);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+    },
     getJSON: function (url,fetchOption, successCallback, failCallback) {
         fetch(url,fetchOption)
             .then((response) => response.text())

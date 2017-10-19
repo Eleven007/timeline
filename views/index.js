@@ -21,6 +21,7 @@ import Util from './common/util';
 import Service from './common/Service';
 import WalkThrough from './walkthrough';
 import {NavigationActions} from 'react-navigation';
+import SplashScreen from 'react-native-splash-screen'
 const resetAction = NavigationActions.reset({
     index: 0,
     actions: [
@@ -30,6 +31,7 @@ const resetAction = NavigationActions.reset({
 export default class extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             username: "",
             password: "",
@@ -45,11 +47,14 @@ export default class extends Component {
             that.setState({
                 showIndex: false,
                 showLogin: true,
+
             })
         }
     }
-
     componentDidMount() {
+        setTimeout(function () {
+            SplashScreen.hide();
+        },2000);
         const {navigate} = this.props.navigation;
         let that = this;
         AsyncStorage.getItem('userInfo', function (err, userInfo) {

@@ -75,7 +75,7 @@ export default class extends Component {
                                                resizeMode="stretch"/>
                                     </TouchableOpacity>
                                     <TouchableOpacity onPress={() => {
-                                        this.props.screenProps.drawerNav('Settings')
+
                                     }}>
                                         <Image source={require('../images/icon-Ellipses.png')} style={styles.Ellipses}
                                                resizeMode="stretch"/>
@@ -87,6 +87,13 @@ export default class extends Component {
                                     <View >
                                         <Text style={styles.week}>Settings</Text>
                                     </View>
+                                </View>
+                                <View style={[styles.right, styles.flex]}>
+                                    {
+                                        this.state.image?
+                                            <Image source={this.state.image} style={{width:40,height:40,borderRadius:40}}/>:null
+                                    }
+                                    <Image/>
                                 </View>
                             </View>
                             <View style={styles.nav_con}>
@@ -355,11 +362,15 @@ export default class extends Component {
     _pickerImages(){
         ImagePicker.openPicker({
             width: 300,
-            height: 400,
+            height: 300,
             cropping: true
         }).then(image => {
-            console.log(image);
-        });
+            this.uploadImage(image.path);
+            this.setState({
+                image: {uri: image.path},
+                images: null
+            });
+        }).catch(e => alert(e));
     }
     _modify() {
         const {goBack} = this.props.navigation;
@@ -403,6 +414,36 @@ export default class extends Component {
                 Alert.alert('提示', data.msg);
             }
         })
+    }
+    uploadImage(uri){
+        let formData = new FormData();
+        let file = {uri: uri, type: 'multipart/form-data', name: 'file.jpg'};
+
+        formData.append("file",file);
+        let uploadUrl=Service.host+Service.uploadUri.uploadImage;
+        alert(formData);
+        fetch(uploadUrl,{
+            method:'POST',
+            headers:{
+                'Content-Type':'multipart/form-data',
+            },
+            body:formData,
+        })
+            .then((response) => response.text() )
+            .then((responseData)=>{
+
+                console.log('responseData',responseData);
+            })
+            .catch((error)=>{console.error('error',error)});
+        // Util.postJSON(uploadUrl,{
+        //     method:'POST',
+        //     headers:{
+        //         'Content-Type':'multipart/form-data',
+        //     },
+        //     body:formData,
+        // },function (json) {
+        //     alert(json);
+        // });
     }
 }
 const styles = StyleSheet.create({
@@ -453,6 +494,9 @@ const styles = StyleSheet.create({
     },
     left: {
         alignItems: 'flex-start'
+    },
+    right: {
+        alignItems: 'flex-end'
     },
     week: {
         fontSize: 35,

@@ -373,6 +373,7 @@ export default class extends Component {
                                     colors={['#ff0000', '#00ff00', '#0000ff']}
                                     progressBackgroundColor="#ffff00"
                                 />
+
                             }>
                                 {items}
                             </ScrollView>
