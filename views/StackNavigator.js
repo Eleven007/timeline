@@ -19,9 +19,7 @@ const ModalStack = StackNavigator({
     },
     DrawerHome: {
         screen: DrawerHome,
-        params:{
-            userInfo:'111'
-        }
+
     },
     WalkThrough: {
         screen: WalkThrough,

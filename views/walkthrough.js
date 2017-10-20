@@ -16,10 +16,28 @@ import {
     AsyncStorage
 } from 'react-native';
 import Util from './common/util';
+
+import {addTodo, toggleTodo, setVisibilityFilter, VisibilityFilters} from '../redux/actions/todoApp';
+import {skipLogin, logOut} from '../redux/actions/user';
+import store from '../redux/store'
 export default class extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            msg: '初始数据',
+        }
     }
+
+    componentDidMount() {
+        let that = this;
+        let unsubscribe = store.subscribe(() => {
+            that.setState({
+                msg:store.getState().userStore.user ? store.getState().userStore.user.name : ""
+            })
+            }
+        );
+    }
+
     render() {
         return (
             <ImageBackground source={require('../images/Background3.png')}
@@ -41,16 +59,20 @@ export default class extends Component {
                         </View>
                         <View style={[styles.center, {marginTop: 100}]}>
                             <View style={styles.tip}>
-                                <Text style={{textAlign: 'center', fontSize: 15, color: '#fff', lineHeight: 25}}>The
-                                    last task management app you’ll ever need</Text>
+                                <Text style={{
+                                    textAlign: 'center',
+                                    fontSize: 15,
+                                    color: '#fff',
+                                    lineHeight: 25
+                                }}>{this.state.msg}</Text>
                             </View>
                         </View>
-                        <View style={[styles.center,styles.btn_con]}>
+                        <View style={[styles.center, styles.btn_con]}>
                             <TouchableOpacity onPress={this._loadPage.bind(this)}>
-                                <View style={[styles.btn,styles.btn1]}><Text style={styles.btn_text}>Skip</Text></View>
+                                <View style={[styles.btn, styles.btn1]}><Text style={styles.btn_text}>Skip</Text></View>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={this._loadPage.bind(this)}>
-                                <View style={[styles.btn,styles.btn2]}><Text style={styles.btn_text}>Next</Text></View>
+                                <View style={[styles.btn, styles.btn2]}><Text style={styles.btn_text}>Next</Text></View>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -58,12 +80,13 @@ export default class extends Component {
             </ImageBackground>
         )
     }
-    _loadPage(){
+
+    _loadPage() {
         const {navigate} = this.props.nav;
-        AsyncStorage.getItem('userInfo',  function (err,userInfo) {
-            navigate("DrawerHome",{
-                stackNav:navigate,
-                userInfo:userInfo
+        AsyncStorage.getItem('userInfo', function (err, userInfo) {
+            navigate("DrawerHome", {
+                stackNav: navigate,
+                userInfo: userInfo
             });
         });
 
@@ -109,30 +132,30 @@ const styles = StyleSheet.create({
     tip: {
         width: 210
     },
-    btn_con:{
-        flexDirection:'row',
-        marginTop:106,
-        justifyContent:'center',
-        alignItems:'center'
+    btn_con: {
+        flexDirection: 'row',
+        marginTop: 106,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    btn:{
-        width:150,
-        height:55,
-        alignItems:'center',
-        justifyContent:'center',
-        borderRadius:28,
-        borderWidth:Util.pixel,
+    btn: {
+        width: 150,
+        height: 55,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 28,
+        borderWidth: Util.pixel,
     },
-    btn_text:{
-        fontSize:15,
-        color:'#fff'
+    btn_text: {
+        fontSize: 15,
+        color: '#fff'
     },
-    btn1:{
-        borderColor:'rgba(255,255,255,0.2)'
+    btn1: {
+        borderColor: 'rgba(255,255,255,0.2)'
     },
-    btn2:{
-        marginLeft:25,
-        borderColor:"transparent",
-        backgroundColor:"#ff3366"
+    btn2: {
+        marginLeft: 25,
+        borderColor: "transparent",
+        backgroundColor: "#ff3366"
     }
 });

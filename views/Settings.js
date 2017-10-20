@@ -16,12 +16,13 @@ import {
     AsyncStorage,
     Alert,
     TextInput,
-    DatePickerAndroid
+    DatePickerAndroid,
 } from 'react-native';
 import Util from './common/util';
 import Service from './common/Service';
 import Picker from 'react-native-picker';
 import area from './common/area.json';
+let path=require('path');
 import ImagePicker from 'react-native-image-crop-picker';
 export default class extends Component {
     constructor(props) {
@@ -90,8 +91,8 @@ export default class extends Component {
                                 </View>
                                 <View style={[styles.right, styles.flex]}>
                                     {
-                                        this.state.image?
-                                            <Image source={this.state.image} style={{width:40,height:40,borderRadius:40}}/>:null
+                                        this.state.avator?
+                                            <Image source={{uri:this.state.avator}} style={{width:40,height:40,borderRadius:40}}/>:null
                                     }
                                     <Image/>
                                 </View>
@@ -365,11 +366,7 @@ export default class extends Component {
             height: 300,
             cropping: true
         }).then(image => {
-            this.uploadImage(image.path);
-            this.setState({
-                image: {uri: image.path},
-                images: null
-            });
+            this.uploadImage(image);
         }).catch(e => alert(e));
     }
     _modify() {
@@ -381,6 +378,7 @@ export default class extends Component {
         let password = this.state.password;
         let email=this.state.email;
         let location=this.state.location;
+        let avator=this.state.avator;
         const that=this;
         if (!username || !password||!email||!year) {
             Alert.alert('提示', '用户名或密码不能为空');
@@ -395,7 +393,8 @@ export default class extends Component {
             password: password,
             email: email,
             birthday: new Date(year.slice(0,-1),month.slice(0,-1)-1,day.slice(0,-1)),
-            location:location
+            location:location,
+            avator:avator
         };
         Util.post(updateURL,newUserInfo, function (data) {
             that.setState({
@@ -415,35 +414,23 @@ export default class extends Component {
             }
         })
     }
-    uploadImage(uri){
+    uploadImage(image){
         let formData = new FormData();
-        let file = {uri: uri, type: 'multipart/form-data', name: 'file.jpg'};
-
+        let that=this;
+        let file = {uri: image.path, type: 'multipart/form-data', name: path.basename(image.path)};
         formData.append("file",file);
         let uploadUrl=Service.host+Service.uploadUri.uploadImage;
-        alert(formData);
-        fetch(uploadUrl,{
+        Util.postJSON(uploadUrl,{
             method:'POST',
             headers:{
                 'Content-Type':'multipart/form-data',
             },
             body:formData,
-        })
-            .then((response) => response.text() )
-            .then((responseData)=>{
-
-                console.log('responseData',responseData);
-            })
-            .catch((error)=>{console.error('error',error)});
-        // Util.postJSON(uploadUrl,{
-        //     method:'POST',
-        //     headers:{
-        //         'Content-Type':'multipart/form-data',
-        //     },
-        //     body:formData,
-        // },function (json) {
-        //     alert(json);
-        // });
+        },function (json) {
+            that.setState({
+                avator: json.data.imgurl,
+            });
+        });
     }
 }
 const styles = StyleSheet.create({

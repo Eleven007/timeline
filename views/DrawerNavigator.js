@@ -24,14 +24,12 @@ import Overview from './Overview';
 import Profile from './Profile';
 import Settings from './Settings';
 import Timeline from './Timeline';
+import Register from './JPush';
 const resetAction = NavigationActions.reset({
     index: 0,
     actions: [
         NavigationActions.navigate({
             routeName: 'Index',
-            params: {
-                swichType: 'Logout'
-            }
         })
     ]
 });
@@ -138,6 +136,21 @@ const ModalStack = DrawerNavigator({
     Settings: {
         screen: Settings,
         navigationOptions: {
+            drawerIcon: () => (
+                <View>
+                    <Image
+                        source={require('../images/icon-Settings.png')}
+                        style={styles.icon}
+                        resizeMode="stretch"
+                    />
+                </View>
+            )
+        }
+    },
+    Register:{
+        screen: Register,
+        navigationOptions: {
+            drawerLabel: '极光推送',
             drawerIcon: () => (
                 <View>
                     <Image

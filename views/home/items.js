@@ -238,6 +238,9 @@ import Util from '../common/util';
 import Service from '../common/Service';
 import NoteItem from './itemblock';
 import co from 'co';
+import SplashScreen from 'react-native-splash-screen'
+import {skipLogin, logOut} from '../../redux/actions/user';
+import store from '../../redux/store'
 export default class extends Component {
     constructor(props) {
         super(props);
@@ -247,14 +250,15 @@ export default class extends Component {
             weather: '',
             city: '',
             temp: '',
-            noteList:[],
+            noteList: [],
             isLoadingShow: true,
-            isRefreshing:false,
+            isRefreshing: false,
         }
     }
 
     componentDidMount() {
-        let [weatherUri, weatherAppCode,noteUri] = [Service.weatherURL + '?city=' + '武汉', Service.weatherAppCode,Service.noteUri];
+        SplashScreen.hide();
+        let [weatherUri, weatherAppCode, noteUri] = [Service.weatherURL + '?city=' + '武汉', Service.weatherAppCode, Service.noteUri];
         let that = this;
         Util.getJSON(weatherUri, {
             headers: {
@@ -262,46 +266,38 @@ export default class extends Component {
             }
         }, function (json) {
             if (json.status === '0') {
-                let monthArr=['January ', 'February', 'March', 'April', 'May ', 'June ', 'July', 'August ', 'September ', 'October ', 'November', 'December'];
-                let dateTime=new Date(json.result.date);
-                let dateStr = monthArr[dateTime.getMonth()]+','+dateTime.getDate()+','+dateTime.getFullYear();
+                let monthArr = ['January ', 'February', 'March', 'April', 'May ', 'June ', 'July', 'August ', 'September ', 'October ', 'November', 'December'];
+                let dateTime = new Date(json.result.date);
+                let dateStr = monthArr[dateTime.getMonth()] + ',' + dateTime.getDate() + ',' + dateTime.getFullYear();
                 that.setState({
                     week: json.result.week,
                     date: dateStr,
                     weather: json.result.weather,
                     city: json.result.city,
                     temp: json.result.temp,
-                    isLoadingShow:false,
+                    isLoadingShow: false,
                 })
             }
-        },function () {
+        }, function () {
             that.setState({
-                isLoadingShow:false,
+                isLoadingShow: false,
             })
         });
-        AsyncStorage.getItem('userInfo',  function (err,userInfo) {
-            let userId=JSON.parse(userInfo).id;
-            Util.getJSON(Service.host+noteUri.getNote+"?userId="+userId,{},function (json) {
+        AsyncStorage.getItem('userInfo', function (err, userInfo) {
+            let userId = JSON.parse(userInfo).id;
+            that.setState({
+                avator: JSON.parse(userInfo).avator
+            });
+            Util.getJSON(Service.host + noteUri.getNote + "?userId=" + userId, {}, function (json) {
                 that.setState({
-                    noteList:json.data
+                    noteList: json.data,
+                    avator: JSON.parse(userInfo).avator
                 })
-            },function (e) {
+            }, function (e) {
             })
         });
     }
-    _onRefresh(){
-        let noteUri = Service.noteUri;
-        let that = this;
-        AsyncStorage.getItem('userInfo',  function (err,userInfo) {
-            let userId=JSON.parse(userInfo).id;
-            Util.getJSON(Service.host+noteUri.getNote+"?userId="+userId,{},function (json) {
-                that.setState({
-                    noteList:json.data
-                })
-            },function (e) {
-            })
-        });
-    }
+
     render() {
         let items = [];
         let that = this;
@@ -312,7 +308,7 @@ export default class extends Component {
                           timeStatus={val.timestatus}
                           title={val.title}
                           desc={val.desc}
-                          people={val.User2Note||[]}
+                          people={val.User2Note || []}
                           key={val.id}
                           nav={that.props.navigation.navigate}
                 />
@@ -323,7 +319,7 @@ export default class extends Component {
                 {
                     this.state.isLoadingShow ?
                         Util.loading
-                        :  <View style={styles.container}>
+                        : <View style={styles.container}>
                         <View style={styles.menu}>
                             <TouchableOpacity onPress={() => {
                                 this.props.screenProps.drawerNav('DrawerOpen')
@@ -333,9 +329,9 @@ export default class extends Component {
                             </TouchableOpacity>
                             <View style={styles.avatar_con}>
                                 <TouchableOpacity onPress={() => {
-                                    this.props.screenProps.drawerNav('Settings')
+                                    store.dispatch(skipLogin());
                                 }}>
-                                    <Image source={require('../../images/Avatar.png')} style={styles.avatar}
+                                    <Image source={{uri: this.state.avator}} style={styles.avatar}
                                            resizeMode="stretch"/>
                                 </TouchableOpacity>
                             </View>
@@ -353,8 +349,13 @@ export default class extends Component {
                                 <View style={styles.weather}>
                                     <Image source={require('../../images/icon-Sunny.png')} style={styles.icon_weather}
                                            resizeMode="stretch"/>
-                                    <Text style={{fontSize: 16, color: '#fff', marginLeft: 10}}>{this.state.weather}</Text>
-                                    <Text style={{fontSize: 40, color: '#fff', marginLeft: 10}}>{this.state.temp}°</Text>
+                                    <Text style={{
+                                        fontSize: 16,
+                                        color: '#fff',
+                                        marginLeft: 10
+                                    }}>{this.state.weather}</Text>
+                                    <Text
+                                        style={{fontSize: 40, color: '#fff', marginLeft: 10}}>{this.state.temp}°</Text>
                                 </View>
                                 <View >
                                     <Text style={styles.local}>{this.state.city}</Text>
@@ -363,7 +364,7 @@ export default class extends Component {
                         </View>
 
                         <View style={{marginTop: 30, flex: 1}}>
-                            <ScrollView  refreshControl={
+                            <ScrollView refreshControl={
                                 <RefreshControl
                                     refreshing={this.state.isRefreshing}
                                     onRefresh={this._onRefresh}
@@ -387,6 +388,20 @@ export default class extends Component {
                 }
             </ImageBackground>
         )
+    }
+
+    _onRefresh() {
+        let noteUri = Service.noteUri;
+        let that = this;
+        AsyncStorage.getItem('userInfo', function (err, userInfo) {
+            let userId = JSON.parse(userInfo).id;
+            Util.getJSON(Service.host + noteUri.getNote + "?userId=" + userId, {}, function (json) {
+                that.setState({
+                    noteList: json.data,
+                })
+            }, function (e) {
+            })
+        });
     }
 }
 const styles = StyleSheet.create({
@@ -429,7 +444,7 @@ const styles = StyleSheet.create({
     avatar: {
         width: 30,
         height: 30,
-        borderRadius: 15,
+        borderRadius: 30,
     },
     left: {
         alignItems: 'flex-start'
